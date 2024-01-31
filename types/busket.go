@@ -3,10 +3,10 @@ package types
 import "github.com/google/uuid"
 
 type Busket struct {
-	ID       string
-	Products []*BusketProduct
-	UID      string
-	Balance  float64
+	ID       string           `json:"id" bson:"id"`
+	Products []*BusketProduct `json:"products" bson:"products"`
+	UID      string           `json:"uid" bson:"uid"`
+	Balance  float64          `json:"balace" bson:"balance"`
 }
 
 func NewBusket(uid string) *Busket {
@@ -19,7 +19,7 @@ func NewBusket(uid string) *Busket {
 }
 
 type BusketProduct struct {
-	ID        string
-	UnitPrice float64
-	UnitSize  int
+	ID        string  `json:"id" bson:"id"`
+	UnitPrice float64 `json:"unit_price" bson:"unit_price"`
+	UnitSize  int     `json:"unit_size" bson:"unit_size"`
 }

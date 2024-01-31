@@ -3,13 +3,13 @@ package types
 import "time"
 
 type User struct {
-	UID       string
-	FirstName string
-	LastName  string
-	Email     string
-	Password  string
-	Busket    *Busket
-	CreatedAt time.Time
+	UID       string    `json:"uid" bson:"uid"`
+	FirstName string    `json:"first_name" bson:"first_name"`
+	LastName  string    `json:"last_name" bson:"last_name"`
+	Email     string    `json:"email" bson:"email"`
+	Password  string    `json:"password" bson:"password"`
+	Busket    *Busket   `json:"busket" bson:"busket"`
+	CreatedAt time.Time `json:"created_at" bson:"created_at"`
 }
 
 func (u *User) ResponseUser() *ResponseUser {
@@ -23,21 +23,21 @@ func (u *User) ResponseUser() *ResponseUser {
 }
 
 type ResponseUser struct {
-	FirstName string
-	LastName  string
-	Email     string
-	Busket    *Busket
-	CreatedAt time.Time
+	FirstName string    `json:"first_name"`
+	LastName  string    `json:"lastname"`
+	Email     string    `json:"email"`
+	Busket    *Busket   `json:"busket"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type CreateUserInput struct {
-	FirstName string
-	LastName  string
-	Email     string
-	Password  string
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	Password  string `json:"password"`
 }
 
 type LoginInput struct {
-	Email    string
-	Password string
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }

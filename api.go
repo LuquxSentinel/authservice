@@ -29,6 +29,9 @@ func NewAPIServer(listenAddress string, service Service) *APIServer {
 
 func (api *APIServer) Run() error {
 
+	api.router.HandleFunc("/register", handler(api.createUser))
+	api.router.HandleFunc("/login", handler(api.login))
+
 	return http.ListenAndServe(api.listenAddress, api.router)
 }
 
@@ -56,13 +59,17 @@ func (api *APIServer) login(ctx context.Context, w http.ResponseWriter, r *http.
 		}
 	}
 
-	responseUser, err := api.service.Login(ctx, loginInput.Email, loginInput.Password)
+	responseUser, token, err := api.service.Login(ctx, loginInput.Email, loginInput.Password)
 	if err != err {
 		return &types.Error{
 			StatusCode: http.StatusInternalServerError,
 			Message:    "wrong email or password",
 		}
 	}
+
+	// add  jwt token to header
+	w.Header().Add("authorization", token)
+	// TODO: implement refresh token
 
 	err = writeResponse(w, responseUser)
 	if err != nil {
